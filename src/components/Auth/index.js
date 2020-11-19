@@ -13,7 +13,7 @@ export default class Auth extends Component {
   render() {
     return (
       <div className='Auth'>
-        <button className='btn btn-secondary' type='button' onClick={this.loginClickEvent}>
+        <button className='btn btn-secondary' onClick={this.loginClickEvent}>
           <img src={googleImage} alt='Google Sign In Button' />
         </button>
       </div>
