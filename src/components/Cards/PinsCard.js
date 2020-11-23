@@ -1,18 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardTitle,
+  Button,
+  CardBody,
+} from 'reactstrap';
 
-export default function PinsCard({ pin }) {
-  return (
-    <Link className='whole-card' to={`/pins/${pin.firebaseKey}`}>
-      <div
-        style={{ backgroundImage: `url(${pin.imageUrl})` }}
-        className='card board-card m-2'
-      >
-        <div className='card-body'>
-          <h5 className='card-title'>{pin.name}</h5>
-          <p className='card-text'>{pin.description}</p>
-        </div>
+class PinsCard extends Component {
+  render() {
+    const { pin, removePin } = this.props;
+    return (
+      <div>
+        <Card>
+          <CardImg top width='100%' src={pin.imageUrl} alt='Card image cap' />
+          <CardBody>
+            <CardTitle tag='h5'>{pin.name}</CardTitle>
+            <CardText>{pin.description}</CardText>
+            <Button
+              clsasname='btn btn-danger'
+              id={pin.firebaseKey}
+              onClick={(e) => removePin(e)}
+            >
+              Delete Pin
+            </Button>
+          </CardBody>
+        </Card>
       </div>
-    </Link>
-  );
+    );
+  }
 }
+
+export default PinsCard;

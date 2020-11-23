@@ -11,8 +11,8 @@ const getAllUserBoards = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const createBoard = (object) => new Promise((resolve, reject) => {
-  axios.post(`${baseUrl}/boards.json`, object)
+const createBoard = (data) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/boards.json`, data)
     .then((response) => {
       console.warn(response);
       axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { firebaseKey: response.data.name }).then(resolve);
@@ -30,7 +30,7 @@ const updateBoard = (object) => new Promise((resolve, reject) => {
     .then(resolve).catch((error) => reject(error));
 });
 
-const deleteBoard = (firebaseKey) => axios.delete(`${baseUrl}/boards/${firebaseKey}.json`);
+const deleteBoard = (boardId) => axios.delete(`${baseUrl}/boards/${boardId}.json`);
 
 export default {
   getAllUserBoards,
