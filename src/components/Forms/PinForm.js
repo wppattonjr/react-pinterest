@@ -10,6 +10,7 @@ export default class PinForm extends Component {
     imageUrl: this.props.pin?.imageUrl || '',
     userId: this.props.pin?.userId || '',
     description: this.props.pin?.description || '',
+    websiteUrl: this.props.pin?.websiteUrl || '',
     private: this.props.pin?.private || false,
   };
 
@@ -70,6 +71,15 @@ export default class PinForm extends Component {
           required
         />
         <input
+          type='url'
+          name='websiteUrl'
+          value={this.state.websiteUrl}
+          onChange={this.handleChange}
+          placeholder='Enter the websiteUrl for this pin'
+          className='form-control form-control-lg m-1'
+          required
+        />
+        <input
           type='text'
           name='description'
           value={this.state.description}
@@ -87,6 +97,11 @@ export default class PinForm extends Component {
           className='form-control form-control-lg m-1'
           required
         />
+        {/* <div className='form-group'>
+          <label>Please Select A Board</label>
+          <select className='form-control' id='board-selection' name='private' value='' onChange={this.handleChange}>
+          </select>
+        </div> */}
         <div className='form-group'>
           <label>Please Select Public or Private</label>
           <select className='form-control' id='private' name='private' value={this.state.private} onChange={this.handleChange}>
