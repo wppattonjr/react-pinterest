@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Card, CardText, CardBody, CardTitle,
+} from 'reactstrap';
 
 class BoardsCard extends Component {
   render() {
     const { board, removeBoard } = this.props;
     return (
-        <div className='card m-2'>
-          <img className='card-img-top' src={board.imageUrl} alt='Board Img' />
-          <div className='card-body'>
-            <h5 className='card-title'>{board.name}</h5>
-            <p className='card-text'>
-              {board.description}
-            </p>
-            <Link className='btn btn-primary' to={`/boards/${board.firebaseKey}`}>
+      <div>
+      <Card>
+        <CardBody>
+          <CardTitle tag="h5">{board.name}</CardTitle>
+        </CardBody>
+        <img width="100%" src={board.imageUrl} alt="" />
+        <CardBody>
+          <CardText>{board.description}</CardText>
+          <Link className='btn btn-primary' to={`/boards/${board.firebaseKey}`}>
               View Pins
             </Link>
             <button className='btn btn-danger' id={board.firebaseKey} onClick={(e) => removeBoard(e)}>Delete Board</button>
-          </div>
-        </div>
+        </CardBody>
+      </Card>
+    </div>
     );
   }
 }

@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
-import 'firebase/storage';
 import getUser from '../../helpers/data/authData';
-import boardData from '../../helpers/data/boardData';
+import pinData from '../../helpers/data/pinData';
 
-export default class BoardForm extends Component {
+export default class PinForm extends Component {
   state = {
-    firebaseKey: this.props.board?.firebaseKey || '',
-    name: this.props.board?.name || '',
-    imageUrl: this.props.board?.imageUrl || '',
-    userId: this.props.board?.userId || '',
-    description: this.props.board?.description || '',
+    firebaseKey: this.props.pin?.firebaseKey || '',
+    name: this.props.pin?.name || '',
+    imageUrl: this.props.pin?.imageUrl || '',
+    userId: this.props.pin?.userId || '',
+    description: this.props.pin?.description || '',
+    private: this.props.pin?.private || false,
   };
 
   componentDidMount() {
     const userId = getUser();
-    this.setState({
-      userId,
-    });
+    this.setState({ userId });
   }
 
   handleChange = (e) => {
     if (e.target.name === 'filename') {
       this.setState({ imageUrl: '' });
 
-      const storageRef = firebase.storage().ref();
-      const imageRef = storageRef.child(`pinterest/${this.state.userId}/${Date.now()}${e.target.files[0].name}`);
+      const storageRef = firebase.starage().ref();
+      const imageRef = storageRef.child(`pinterest/${this.state.userID}/${Date.now()}${e.target.files[0].name}`);
 
       imageRef.put(e.target.files[0]).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((imageUrl) => {
@@ -37,38 +35,37 @@ export default class BoardForm extends Component {
         [e.target.name]: e.target.value,
       });
     }
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.firebaseKey === '') {
-      boardData.createBoard(this.state)
-        .then(() => {
-          this.props.onUpdate?.();
-          this.setState({ success: true });
-        });
+      pinData.createPin(this.state).then(() => {
+        this.props.onUpdate?.();
+        this.setState({ success: true });
+      });
     } else {
-      boardData.updateBoard(this.state)
+      pinData.updatePin(this.state)
         .then(() => {
-          this.props.onUpdate?.(this.props.board.firebaseKey);
+          this.props.onUpdate?.(this.props.pin.firebaseKey);
           this.setState({ success: true });
         });
     }
-  }
+  };
 
   render() {
     const { success } = this.state;
     return (
-        <div>
-        { success && (<div className="alert alert-success" role="alert">Your Board has been Created/Updated!</div>)}
+      <div>
+      { success && (<div className="alert alert-success" role="alert">Your Pin has been Created/Updated!</div>)}
       <form onSubmit={this.handleSubmit}>
-        <h1>Board Form</h1>
+        <h1>Pin Form</h1>
         <input
           type='text'
           name='name'
           value={this.state.name}
           onChange={this.handleChange}
-          placeholder='Board Name'
+          placeholder='Pin Name'
           className='form-control form-control-lg m-1'
           required
         />
@@ -90,6 +87,13 @@ export default class BoardForm extends Component {
           className='form-control form-control-lg m-1'
           required
         />
+        <div className='form-group'>
+          <label>Please Select Public or Private</label>
+          <select className='form-control' id='private' name='private' value={this.state.private} onChange={this.handleChange}>
+            <option>public</option>
+            <option>private</option>
+          </select>
+        </div>
         <input
           className='m-2'
           type='file'
