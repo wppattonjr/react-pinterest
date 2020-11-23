@@ -21,20 +21,6 @@ export default class Pins extends React.Component {
   }
 
   removePin = (e) => {
-    const removePin = this.state.pins.filter((pin) => pin.firebaseKey !== e.target.id);
-
-    this.setState({
-      pins: removePin,
-    });
-
-    // getPinInfo = (pinId) => {
-    //   pinData.getAPin(pinId).then((response) => {
-    //     this.setState({
-    //       pin: response,
-    //     });
-    //   });
-    // };
-
     pinData.deletePin(e.target.id)
       .then(() => {
         this.getPins();
@@ -54,7 +40,8 @@ export default class Pins extends React.Component {
   render() {
     const { pins } = this.state;
     const renderPins = () => (
-      pins.map((pin) => <PinsCard key={pin.firebaseKey} pin={pin} removePin={this.removePin} />));
+      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} removePin={this.removePin} />))
+    );
     return (
     <>
         <AppModal title={'Create Pin'} buttonLabel={'Create Pin'}>

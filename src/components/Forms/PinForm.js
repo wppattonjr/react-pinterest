@@ -42,13 +42,13 @@ export default class PinForm extends Component {
     e.preventDefault();
     if (this.state.firebaseKey === '') {
       pinData.createPin(this.state).then(() => {
-        this.props.onUpdate?.();
+        this.props.onUpdate();
         this.setState({ success: true });
       });
     } else {
       pinData.updatePin(this.state)
         .then(() => {
-          this.props.onUpdate?.(this.props.pin.firebaseKey);
+          this.props.onUpdate(this.state.firebaseKey);
           this.setState({ success: true });
         });
     }
