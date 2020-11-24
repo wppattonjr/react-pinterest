@@ -12,7 +12,7 @@ import PinForm from '../Forms/PinForm';
 
 class PinsCard extends Component {
   render() {
-    const { pin, removePin } = this.props;
+    const { pin, removePin, onUpdate } = this.props;
     return (
       <div>
         <Card>
@@ -21,7 +21,7 @@ class PinsCard extends Component {
             <CardTitle tag='h5'>{pin.name}</CardTitle>
             <CardText>{pin.description}</CardText>
             <AppModal title={'Update Pin'} buttonLabel={'Update Pin'}>
-              { Object.keys(pin).length && <PinForm pin={pin} onUpdate={this.getPinInfo} />}
+              { Object.keys(pin).length && <PinForm pin={pin} onUpdate={onUpdate} />}
             </AppModal>
             <Button
               className='btn btn-danger'
