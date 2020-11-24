@@ -31,7 +31,12 @@ export default function Routes({ user }) {
         component={Boards}
         user={user}
       />
-      <Route exact path='/pins' component={() => <Pins user={user} />} />
+      <PrivateRoute
+      exact
+      path='/pins'
+      component={Pins}
+      user={user}
+      />
       <Route
         exact
         path='/pins-details'
