@@ -55,6 +55,12 @@ const updatePin = (object) => axios.patch(`${baseUrl}/pins/${object.firebaseKey}
 
 const deletePin = (pinId) => axios.delete(`${baseUrl}/pins/${pinId}.json`);
 
+const getOnlyPublicPins = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/pins.json?orderBy="private"&equalTo="public"`).then((response) => {
+    resolve(Object.values(response.data));
+  }).catch((error) => reject(error));
+});
+
 export default {
   getBoardPins,
   getAPin,
@@ -64,4 +70,5 @@ export default {
   updatePin,
   pinToBoard,
   deletePin,
+  getOnlyPublicPins,
 };

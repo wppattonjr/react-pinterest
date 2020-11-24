@@ -9,9 +9,8 @@ export default class PinForm extends Component {
     name: this.props.pin?.name || '',
     imageUrl: this.props.pin?.imageUrl || '',
     userId: this.props.pin?.userId || '',
-    description: this.props.pin?.description || '',
     websiteUrl: this.props.pin?.websiteUrl || '',
-    private: this.props.pin?.private || false,
+    private: this.props.pin?.private || 'private',
   };
 
   componentDidMount() {
@@ -42,13 +41,13 @@ export default class PinForm extends Component {
     e.preventDefault();
     if (this.state.firebaseKey === '') {
       pinData.createPin(this.state).then(() => {
-        this.props.onUpdate();
+        this.props.onUpdate?.();
         this.setState({ success: true });
       });
     } else {
       pinData.updatePin(this.state)
         .then(() => {
-          this.props.onUpdate();
+          this.props.onUpdate?.();
           this.setState({ success: true });
         });
     }
@@ -80,15 +79,6 @@ export default class PinForm extends Component {
           required
         />
         <input
-          type='text'
-          name='description'
-          value={this.state.description}
-          onChange={this.handleChange}
-          placeholder='Board Description'
-          className='form-control form-control-lg m-1'
-          required
-        />
-        <input
           type='url'
           name='imageUrl'
           value={this.state.imageUrl}
@@ -103,7 +93,7 @@ export default class PinForm extends Component {
           </select>
         </div> */}
         <div className='form-group'>
-          <label>Please Select Public or Private</label>
+          <label>Would you like this pin to be public?</label>
           <select className='form-control' id='private' name='private' value={this.state.private} onChange={this.handleChange}>
             <option>public</option>
             <option>private</option>
