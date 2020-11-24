@@ -7,49 +7,12 @@ import {
   Button,
   CardBody,
 } from 'reactstrap';
-import pinData from '../../helpers/data/pinData';
-import getUid from '../../helpers/data/authData';
 import AppModal from '../AppModal';
 import PinForm from '../Forms/PinForm';
 
 class PinsCard extends Component {
-  state = {
-    pins: [],
-  };
-
-  componentDidMount() {
-    this.getPins();
-  }
-
-  getPins = () => {
-    const userId = getUid();
-    pinData.getAllUserPins(userId).then((pins) => this.setState({ pins }));
-  };
-
-  getPinInfo = (pinId) => {
-    pinData.getAPin(pinId).then((response) => {
-      this.setState({
-        pin: response,
-      });
-    });
-  }
-
-  removePin = (e) => {
-    const removePin = this.state.pins.filter(
-      (pin) => pin.firebaseKey !== e.target.id,
-    );
-
-    this.setState({
-      pins: removePin,
-    });
-
-    pinData.deletePin(e.target.id).then(() => {
-      this.getPins();
-    });
-  };
-
   render() {
-    const { pin, removePin } = this.props;
+    const { pin, removePin, onUpdate } = this.props;
     return (
       <div>
         <Card>
@@ -58,7 +21,7 @@ class PinsCard extends Component {
             <CardTitle tag='h5'>{pin.name}</CardTitle>
             <CardText>{pin.description}</CardText>
             <AppModal title={'Update Pin'} buttonLabel={'Update Pin'}>
-              { Object.keys(pin).length && <PinForm pin={pin} onUpdate={this.getPinInfo} />}
+              { Object.keys(pin).length && <PinForm pin={pin} onUpdate={onUpdate} />}
             </AppModal>
             <Button
               className='btn btn-danger'

@@ -51,12 +51,7 @@ const getAllUserPins = (userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updatePin = (object) => new Promise((resolve, reject) => {
-  axios
-    .patch(`${baseUrl}/pins/${object.firebaseKey}.json`, object)
-    .then(resolve)
-    .catch((error) => reject(error));
-});
+const updatePin = (object) => axios.patch(`${baseUrl}/pins/${object.firebaseKey}.json`, object);
 
 const deletePin = (pinId) => axios.delete(`${baseUrl}/pins/${pinId}.json`);
 
