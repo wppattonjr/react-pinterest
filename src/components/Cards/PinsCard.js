@@ -13,8 +13,8 @@ class PinsCard extends Component {
   render() {
     const { pin, removePin, onUpdate } = this.props;
     return (
-      <div>
-        <Card>
+      <div className="w-50">
+        <Card className='pin-card'>
           <CardImg top width='100%' src={pin.imageUrl} alt='Card image cap' />
           <CardBody>
             <CardTitle tag='h5'>{pin.name}</CardTitle>

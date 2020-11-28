@@ -45,7 +45,7 @@ export default class Pins extends React.Component {
     return (
     <>
         <AppModal title={'Create Pin'} buttonLabel={'Create Pin'}>
-          <PinForm onUpdate={() => this.getPins()} />
+          <PinForm onUpdate={this.getPins()} pin={this.state.pin} />
         </AppModal>
         <div>
           <h2>Here are all pins</h2>

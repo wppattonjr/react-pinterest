@@ -8,12 +8,12 @@ class BoardsCard extends Component {
   render() {
     const { board, removeBoard } = this.props;
     return (
-      <div>
+      <div className="w-50">
       <Card>
         <CardBody>
           <CardTitle tag="h5">{board.name}</CardTitle>
         </CardBody>
-        <img width="100%" src={board.imageUrl} alt="" />
+        <img src={board.imageUrl} alt="" />
         <CardBody>
           <CardText>{board.description}</CardText>
           <Link className='btn btn-primary' to={`/boards/${board.firebaseKey}`}>

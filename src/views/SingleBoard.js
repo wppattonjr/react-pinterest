@@ -56,7 +56,7 @@ export default class SingleBoard extends React.Component {
         <AppModal title={'Update Board'} buttonLabel={'Update Board'}>
         { Object.keys(board).length && <BoardForm board={board} onUpdate={this.getBoardInfo} />}
         </AppModal>
-        <AppModal title={'Add A Pin'} buttonLabel={'Add A Pin'}><PinForm boardId={this.props.match.params.id} onUpdate={this.getPins}/> </AppModal>
+        <AppModal title={'Add A Pin'} buttonLabel={'Add A Pin'}><PinForm boardId={this.props.match.params.id} onUpdate={this.getPins()} pin={this.state.pin}/> </AppModal>
         <h1>{board.name}</h1>
         <div className='d-flex flex-wrap container'>{renderPins()}</div>
       </div>
